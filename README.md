@@ -6,7 +6,7 @@ Quiz zum Podcast „Faktenkreuzung – Folge: Die Rote Welle“ (Deutsch-Prüfun
 
 ## So wird gespielt
 
-- **Spielleitung (Beamer):** https://jakub07makowski-cell.github.io/faktenkreuzung-quiz/?host öffnen. Dort erscheinen QR-Code, Raumnummer und alle, die am Tisch sitzen. „Quiz starten“, danach mit „Weiter“ (oder Leertaste) durch Auflösung und Rangliste.
+- **Spielleitung (Jakub, Jannis, Taha):** Am Laptop, der am Beamer hängt, https://jakub07makowski-cell.github.io/faktenkreuzung-quiz/?host öffnen. Dort erscheinen QR-Code, Raumnummer und alle, die am Tisch sitzen. „Quiz starten“, danach mit „Weiter“ (oder Leertaste) durch Auflösung und Rangliste.
 - **Mitspielen:** QR-Code scannen, „Live-Lobby betreten“, Spitzname und Figur wählen, „Platz nehmen“.
 - **Ohne Live-Runde:** Wer den Code scannt, während keine Live-Runde läuft, spielt automatisch eine Einzelrunde.
 

@@ -555,7 +555,7 @@
     $("#hostSetupText").textContent = "Verbinde mit der Datenbank …";
     hostView("h-setup");
     const ok = await net.ready;
-    if (!ok) { $("#hostSetupText").textContent = "Keine Verbindung zur Firebase-Datenbank. Prüfe das Internet am Beamer-Gerät und die Adresse in js/config.js."; return; }
+    if (!ok) { $("#hostSetupText").textContent = "Keine Verbindung zur Firebase-Datenbank. Prüfe das Internet am Laptop der Spielleitung und die Adresse in js/config.js."; return; }
     const saved = store.get("fk-host-room", null);
     if (saved && Date.now() - saved.at < 3 * 3600 * 1000) {
       const st = await net.get(`rooms/${saved.code}/state`);
