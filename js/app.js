@@ -226,6 +226,7 @@
   // ===================================================================
   let mode = null; // "solo" | "live"
   let liveRoom = null; // gefundene Live-Runde
+  let startUnsub = null;
   let eggQ = -1; // Frage mit verstecktem Ampelmännchen
 
   function initStart() {
@@ -242,12 +243,17 @@
     if (!net) { setSolo("Gerade läuft keine Live-Runde. Du spielst für dich allein."); return; }
     status.innerHTML = '<span class="loading-line"></span>'; tickLoading();
     let decided = false;
-    const forced = (params.get("r") || "").replace(/\D/g, "");
-    net.listen("current", (cur) => {
+    const forced = (new URLSearchParams(location.search).get("r") || "").replace(/\D/g, "");
+    if (startUnsub) startUnsub();
+    startUnsub = net.listen("current", async (cur) => {
       decided = true;
-      const code = forced || (cur && cur.code);
-      const fresh = cur && cur.code === code && now() - (cur.alive || 0) < 40000 && cur.phase !== "podium";
-      if (code && (fresh || forced)) {
+      const fresh = cur && cur.code && now() - (cur.alive || 0) < 40000 && cur.phase !== "podium";
+      let code = fresh ? cur.code : null;
+      if (!code && forced) { // QR-Code vom Beamer mit Raumnummer: nur nehmen, wenn der Raum noch offen ist
+        const st = await net.get(`rooms/${forced}/state`);
+        if (st && st.phase !== "closed" && st.phase !== "podium") code = forced;
+      }
+      if (code) {
         liveRoom = code;
         status.classList.add("on");
         status.textContent = `Live-Runde gefunden: Raum ${code}`;
@@ -484,6 +490,14 @@
     const st = live && live.state;
     if (!live || !live.stateLoaded) return;
     if (!st) { stopLive(); toast("Die Live-Runde wurde beendet."); initStart(); return; }
+    if (st.phase === "closed") {
+      stopLive();
+      try { const u = new URLSearchParams(location.search); u.delete("r"); history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : "")); } catch (e) {}
+      $("#countdown").classList.add("hidden"); setOnAir(false);
+      initStart();
+      toast("Es gibt einen neuen Raum. Tippe auf „Live-Lobby betreten“, um wieder mitzuspielen.", 5000);
+      return;
+    }
     const round = st.round || 0;
     const key = `${st.phase}:${st.q}:${round}`;
     if (st.phase === "lobby") {
@@ -573,7 +587,12 @@
   }
 
   async function newRoom() {
+    const old = host.code;
     detachHost();
+    clearTimeout(timerRAF); clearTimeout(timerHard); $("#countdown").classList.add("hidden");
+    if (answersUnsub) { answersUnsub(); answersUnsub = null; }
+    answersQ = -1; lastHostKey = "";
+    if (old) { try { await net.update(`rooms/${old}/state`, { phase: "closed" }); } catch (e) {} }
     const code = String(1000 + Math.floor(Math.random() * 9000));
     await net.set(`rooms/${code}`, { state: { phase: "lobby", q: -1 }, created: net.TS });
     store.set("fk-host-room", { code, at: Date.now() });
@@ -779,7 +798,6 @@
   $("#btnStart").addEventListener("click", hostNext);
   $("#btnHostNext").addEventListener("click", hostNext);
   $("#btnBoardNext").addEventListener("click", hostNext);
-  $("#btnNewRoom").addEventListener("click", () => newRoom());
 
   // Spiel zurücksetzen: gleicher Raum, gleicher QR-Code, alle bleiben am Tisch, Punkte und Antworten weg
   async function hostReset() {
@@ -793,9 +811,17 @@
     host.revealing = false;
     toast("Spiel zurückgesetzt. Alle bleiben am Tisch, wer fehlt, kann jetzt noch scannen.");
   }
-  $("#btnReset").addEventListener("click", () => { $("#btnReset").classList.add("hidden"); $("#resetAsk").classList.remove("hidden"); });
-  $("#resetNo").addEventListener("click", () => { $("#resetAsk").classList.add("hidden"); $("#btnReset").classList.remove("hidden"); });
-  $("#resetYes").addEventListener("click", async () => { $("#resetAsk").classList.add("hidden"); $("#btnReset").classList.remove("hidden"); await hostReset(); });
+  let askAction = null;
+  function ask(text, yes, action) {
+    askAction = action;
+    $("#resetText").textContent = text; $("#resetYes").textContent = yes;
+    $("#toolBtns").classList.add("hidden"); $("#resetAsk").classList.remove("hidden");
+  }
+  function closeAsk() { $("#resetAsk").classList.add("hidden"); $("#toolBtns").classList.remove("hidden"); }
+  $("#btnReset").addEventListener("click", () => ask("Wirklich von vorne? Punkte und Antworten werden gelöscht, alle bleiben am Tisch.", "Ja, neu starten", hostReset));
+  $("#btnNewRoom2").addEventListener("click", () => ask("Neuen Raum erstellen? Es gibt eine neue Raumnummer und einen neuen QR-Code. Alle müssen neu beitreten.", "Ja, neuer Raum", async () => { await newRoom(); toast("Neuer Raum erstellt. Alle bitte neu beitreten."); }));
+  $("#resetNo").addEventListener("click", closeAsk);
+  $("#resetYes").addEventListener("click", async () => { const a = askAction; closeAsk(); if (a) await a(); });
   $("#btnRestart").addEventListener("click", () => newRoom());
   document.addEventListener("keydown", (e) => {
     if (!IS_HOST) return;

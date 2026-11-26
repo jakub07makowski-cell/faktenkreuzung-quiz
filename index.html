@@ -7,7 +7,7 @@
 <meta name="description" content="Quiz zum Thema Verschwörungserzählungen: Die Rote Welle. Zum Podcast „Faktenkreuzung“.">
 <meta name="theme-color" content="#1d2850">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/style.css?v=202611261032">
+<link rel="stylesheet" href="css/style.css?v=202611261036">
 </head>
 <body>
 <div class="wall" aria-hidden="true"></div>
@@ -173,9 +173,12 @@
   <!-- Spielleitung -->
   <section class="screen" id="s-host">
     <div class="host-tools hidden" id="hostTools">
-      <button class="btn ghost small" id="btnReset">Spiel zurücksetzen</button>
+      <div class="tool-btns" id="toolBtns">
+        <button class="btn ghost small" id="btnReset">Spiel zurücksetzen</button>
+        <button class="btn ghost small" id="btnNewRoom2">Raum neu generieren</button>
+      </div>
       <div class="reset-ask hidden" id="resetAsk">
-        <span>Wirklich von vorne? Punkte und Antworten werden gelöscht, alle bleiben am Tisch.</span>
+        <span id="resetText"></span>
         <button class="btn small danger" id="resetYes">Ja, neu starten</button>
         <button class="btn ghost small" id="resetNo">Abbrechen</button>
       </div>
@@ -202,7 +205,6 @@
           <div class="seats" id="seats"></div>
           <div class="h-actions">
             <button class="btn primary big" id="btnStart" disabled>Quiz starten</button>
-            <button class="btn ghost" id="btnNewRoom">Neuer Raum</button>
           </div>
         </div>
       </div>
@@ -254,10 +256,10 @@
 <script src="vendor/firebase-app-compat.js"></script>
 <script src="vendor/firebase-database-compat.js"></script>
 <script src="vendor/qrcode.js"></script>
-<script src="js/config.js?v=202611261032"></script>
-<script src="js/data.js?v=202611261032"></script>
-<script src="js/figures.js?v=202611261032"></script>
-<script src="js/net.js?v=202611261032"></script>
-<script src="js/app.js?v=202611261032"></script>
+<script src="js/config.js?v=202611261036"></script>
+<script src="js/data.js?v=202611261036"></script>
+<script src="js/figures.js?v=202611261036"></script>
+<script src="js/net.js?v=202611261036"></script>
+<script src="js/app.js?v=202611261036"></script>
 </body>
 </html>
