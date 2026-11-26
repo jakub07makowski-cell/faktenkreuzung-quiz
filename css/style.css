@@ -438,3 +438,145 @@ body.host .q-num { font-size: 22px; padding: 6px 16px; }
 .reset-ask { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px; max-width: 560px; font-weight: 600; }
 .tool-btns { display: flex; gap: 10px; }
 button, .answer, .chip, .swatch, .fig-opt { touch-action: manipulation; }
+
+/* =====================================================================
+   Handys und Tablets
+   ===================================================================== */
+html { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+body { min-height: 100dvh; }
+main { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); padding-bottom: max(40px, calc(env(safe-area-inset-bottom) + 24px)); }
+.studio { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+.studio > * { min-width: 0; }
+.h-lobby-grid > *, .hq-main > *, .fb-row > * { min-width: 0; }
+.bubble, .answer span, .join-url { overflow-wrap: anywhere; }
+.answer span { hyphens: auto; }
+.toast { bottom: max(24px, calc(env(safe-area-inset-bottom) + 16px)); }
+
+/* Spieler auf Tablets: mehr Platz nutzen */
+@media (min-width: 700px) {
+  body:not(.host) main { max-width: 720px; }
+  body:not(.host) .studio { max-width: 720px; }
+  body:not(.host) .answers { grid-template-columns: 1fr 1fr; gap: 14px; }
+  body:not(.host) .answer { min-height: 96px; font-size: 20px; }
+  body:not(.host) .asker .bubble { font-size: 24px; padding: 14px 18px; }
+  body:not(.host) .asker-fig { width: 96px; }
+  body:not(.host) .fig-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  body:not(.host) .pinboard { height: 210px; }
+  h1 { font-size: 34px; }
+  h2 { font-size: 26px; }
+  .card { padding: 24px 26px 26px; }
+  .say .bubble { font-size: 17px; }
+  .me-big .figure { width: 180px; }
+}
+
+/* Spieler im Querformat auf dem Handy */
+@media (max-height: 520px) and (orientation: landscape) {
+  body:not(.host) main { max-width: 900px; }
+  body:not(.host) .studio { max-width: 900px; padding-top: 6px; padding-bottom: 2px; }
+  body:not(.host) .answers { grid-template-columns: 1fr 1fr; gap: 8px; }
+  body:not(.host) .answer { min-height: 52px; padding: 6px 12px; font-size: 15.5px; }
+  body:not(.host) .answer .shape { width: 26px; height: 26px; }
+  .asker { margin-bottom: 8px; }
+  .asker-fig { width: 52px; }
+  .asker .bubble { font-size: 16px; padding: 8px 12px; }
+  .q-top { margin-bottom: 6px; }
+  .me-big .figure, .preview .figure { width: 96px; }
+  .cd-ampel { grid-auto-flow: column; padding: 10px; gap: 10px; border-radius: 20px; }
+  .cd-ampel i { width: 64px; height: 64px; }
+  .cd-text { font-size: 24px; min-height: 30px; }
+  body:not(.host) .fig-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .fb-banner { font-size: 22px; padding: 6px; }
+}
+
+/* Spielleitung auf Tablet oder Handy (statt Beamer) */
+@media (max-width: 1100px), (max-height: 620px), (pointer: coarse) {
+  body.host main { padding-top: 6px; padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); padding-bottom: 24px; }
+  body.host .studio { padding: 10px max(14px, env(safe-area-inset-right)) 8px max(14px, env(safe-area-inset-left)); gap: 10px; }
+  body.host .onair { font-size: 13px; padding: 5px 8px; }
+  body.host .neon { padding: 6px 14px; gap: 10px; }
+  body.host .neon-t { font-size: 18px; }
+  body.host .dots i { width: 10px; height: 10px; }
+  body.host .clock, body.host .clock svg { width: 40px; height: 40px; }
+  body.host .clock-note { top: 42px; font-size: 11px; }
+  body.host .mini-ampel i { width: 10px; height: 10px; }
+  /* Knöpfe nicht mehr über dem Inhalt schweben lassen */
+  body.host .h-actions.right { position: static; justify-content: stretch; margin-top: 14px; }
+  body.host .h-actions.right .btn { flex: 1; font-size: 20px; min-height: 56px; }
+  .host-tools { position: static; justify-content: center; flex-wrap: wrap; margin: 18px 0 max(8px, env(safe-area-inset-bottom)); }
+  body.host #s-host { display: none; }
+  body.host #s-host.active { display: flex; flex-direction: column; }
+  body.host #hostTools { order: 99; }
+  .reset-ask { max-width: 100%; }
+  .seats { min-height: 0; }
+  .h-count { font-size: 22px; }
+  .h-title { font-size: 28px; }
+  .asker.big .asker-fig { width: 84px; }
+  .asker.big .bubble { font-size: 24px; padding: 12px 16px; }
+  .answers.host .answer { font-size: 20px; min-height: 72px; }
+  .answers.host .answer .shape { width: 40px; height: 40px; }
+  .answers.host .answer .cnt { font-size: 26px; }
+  .big-ampel i { width: 42px; height: 42px; }
+  .big-ampel { padding: 8px; gap: 6px; border-radius: 18px; }
+  .big-ampel span { font-size: 22px; }
+  .say.big .say-fig { width: 72px; }
+  .say.big .bubble { font-size: 18px; }
+  .board li { font-size: 21px; padding: 6px 14px; gap: 12px; }
+  .board li .figure { width: 52px; }
+  .board li .sc { min-width: 84px; }
+  .podium { min-height: 0; gap: 10px; }
+  .step { width: auto; flex: 1 1 0; min-width: 0; max-width: 220px; }
+  .step .figure { width: min(110px, 100%); }
+  .step .nm { font-size: 19px; }
+  .step .block { font-size: 34px; }
+  .step .sc { font-size: 15px; }
+}
+
+/* Spielleitung auf dem Handy im Hochformat */
+@media (max-width: 700px) {
+  .h-lobby-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .join-card { padding: 14px; }
+  .qr { width: min(100%, 260px); }
+  .answers.host { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .answers.host .answer { font-size: 17px; min-height: 58px; padding: 8px 12px; }
+  .answers.host .answer .shape { width: 30px; height: 30px; }
+  .answers.host.reveal .answer { min-height: 50px; }
+  .hq-main { gap: 10px; align-items: flex-start; }
+  .asker.big .asker-fig { width: 56px; }
+  .asker.big .bubble { font-size: 18px; padding: 10px 12px; }
+  .big-ampel i { width: 26px; height: 26px; border-width: 2px; }
+  .big-ampel { border-width: 3px; padding: 6px; }
+  .big-ampel span { font-size: 18px; }
+  body.host .q-num { font-size: 16px; padding: 4px 12px; }
+  .hq-count { font-size: 17px; }
+  .say.big .say-fig { width: 52px; }
+  .say.big .bubble { font-size: 15px; }
+  .board li { font-size: 17px; gap: 8px; padding: 6px 10px; }
+  .board li .pl { width: 26px; }
+  .board li .figure { width: 40px; }
+  .board li .wv { display: none; }
+  .board li .sc { min-width: 64px; }
+  .podium-foot { flex-direction: column; align-items: stretch; gap: 12px; }
+  .step .nm { font-size: 15px; }
+  .step.p1 .block { height: 120px; } .step.p2 .block { height: 90px; } .step.p3 .block { height: 70px; }
+  .seat { width: 88px; }
+  .seat .figure { width: 72px; }
+  .seat span { font-size: 13px; max-width: 86px; }
+  .btn.big { font-size: 21px; min-height: 58px; padding: 10px 26px; }
+  body.host .neon-t { font-size: 15px; }
+  body.host .onair { font-size: 12px; }
+}
+
+/* Spielleitung quer auf dem Handy: QR und Tisch nebeneinander, alles niedriger */
+@media (max-height: 520px) and (orientation: landscape) {
+  .h-lobby-grid { grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: 16px; }
+  .qr { width: min(100%, 170px); margin: 4px auto; padding: 8px; }
+  .join-card { padding: 10px; }
+  .room-code b { font-size: 24px; }
+  .answers.host { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .answers.host .answer { font-size: 16px; min-height: 50px; padding: 6px 12px; }
+  .answers.host .answer .shape { width: 28px; height: 28px; }
+  .asker.big .bubble { font-size: 18px; padding: 8px 12px; }
+  .asker.big .asker-fig { width: 56px; }
+  .big-ampel { grid-auto-flow: column; align-items: center; }
+  .big-ampel i { width: 26px; height: 26px; }
+}
