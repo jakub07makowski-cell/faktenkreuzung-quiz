@@ -2,7 +2,7 @@
 // die Reihenfolge wird beim Spielen gemischt.
 window.FK_DATA = {
   title: "Quiz zum Thema Verschwörungserzählungen: Die Rote Welle",
-  questionTime: 20, // Sekunden pro Frage
+  questionTime: 30, // Sekunden pro Frage
 
   questions: [
     {

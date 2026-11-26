@@ -12,7 +12,7 @@ Quiz zum Podcast „Faktenkreuzung – Folge: Die Rote Welle“ (Deutsch-Prüfun
 - **Raum neu generieren:** ebenfalls unten links. Neue Raumnummer und neuer QR-Code, der alte Raum wird geschlossen, alle müssen neu beitreten (ihre Handys springen automatisch auf die Startseite).
 - **Ohne Live-Runde:** Wer den Code scannt, während keine Live-Runde läuft, spielt automatisch eine Einzelrunde.
 
-10 Fragen mit je 20 Sekunden plus eine Bonusfrage ohne Punkte. Schnelle richtige Antworten bringen mehr Punkte, mehrere richtige hintereinander ergeben eine „Grüne Welle“ mit Bonus.
+10 Fragen mit je 30 Sekunden plus eine Bonusfrage ohne Punkte. Schnelle richtige Antworten bringen mehr Punkte, mehrere richtige hintereinander ergeben eine „Grüne Welle“ mit Bonus.
 
 ## Technik
 
