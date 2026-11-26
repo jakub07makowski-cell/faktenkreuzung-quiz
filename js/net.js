@@ -30,14 +30,15 @@
       for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(PFX)) keys.push(k); }
       keys.sort();
       let t = {};
-      for (const k of keys) { try { const w = JSON.parse(localStorage.getItem(k)); t = setIn(t, w.p, w.v); } catch (e) {} }
+      for (const k of keys) { try { const w = JSON.parse(localStorage.getItem(k)); (w.m || [[w.p, w.v]]).forEach(([pp, vv]) => { t = setIn(t, pp, vv); }); } catch (e) {} }
       return t;
     };
     const fire = () => { const t = read(); listeners.forEach((l) => l(t)); };
-    const log = (parts, val) => {
+    const logMany = (pairs) => {
       const k = PFX + String(Date.now()).padStart(15, "0") + ":" + String(seq++).padStart(6, "0") + ":" + Math.random().toString(36).slice(2, 6);
-      localStorage.setItem(k, JSON.stringify({ p: parts, v: val === undefined ? null : val }));
+      localStorage.setItem(k, JSON.stringify({ m: pairs.map(([pp, vv]) => [pp, vv === undefined ? null : vv]) }));
     };
+    const log = (parts, val) => logMany([[parts, val]]);
     window.addEventListener("storage", (e) => { if (e.key && e.key.startsWith(PFX)) fire(); });
     const resolveTS = (v) => {
       if (v && typeof v === "object") {
@@ -55,7 +56,7 @@
       TS: { ".sv": "timestamp" },
       set(path, val) { log([ROOT, ...splitPath(path)], resolveTS(val)); fire(); return Promise.resolve(); },
       update(path, obj) {
-        for (const k in obj) log([ROOT, ...splitPath(path), ...splitPath(k)], resolveTS(obj[k]));
+        logMany(Object.keys(obj).map((k) => [[ROOT, ...splitPath(path), ...splitPath(k)], resolveTS(obj[k])]));
         fire(); return Promise.resolve();
       },
       get(path) { return Promise.resolve(getIn(read(), [ROOT, ...splitPath(path)])); },

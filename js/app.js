@@ -40,6 +40,7 @@
 
   // ---------- Bildschirme ----------
   function show(id) {
+    if (params.has("debug")) console.log("show", id, (new Error().stack || "").split("\n").slice(2, 4).join(" | "));
     document.querySelectorAll(".screen").forEach((s) => s.classList.toggle("active", s.id === id));
     window.scrollTo(0, 0);
   }
@@ -490,6 +491,7 @@
     }
     if (st.phase === "question") {
       if (live.handledKey === key) return;
+      if (typeof st.startAt !== "number" || typeof st.endsAt !== "number" || !Array.isArray(st.perm)) return;
       live.handledKey = key;
       const qi = st.q, q = D.questions[qi];
       if (!q) return;
