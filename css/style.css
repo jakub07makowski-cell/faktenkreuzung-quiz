@@ -173,9 +173,13 @@ p { line-height: 1.4; }
 .n2 { right: 8%; top: 16%; transform: rotate(3deg); background: #dff3ff; }
 .n3 { left: 10%; bottom: 12%; transform: rotate(2deg); background: #ffe1e1; }
 .n4 { right: 10%; bottom: 14%; transform: rotate(-3deg); background: #e4f7dc; }
-.pin-photo { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) rotate(2deg); width: 34px; padding: 5px; background: #222; border: 3px solid #fff; outline: 2px solid var(--ink); display: grid; gap: 3px; }
-.pin-photo i { display: block; height: 7px; border-radius: 50%; background: var(--red); }
-.pin-photo i + i { background: #555; }
+.pin-photo { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) rotate(3deg); background: #fff; border: 2px solid var(--ink); padding: 6px 6px 16px; box-shadow: 2px 3px 0 rgba(0,0,0,.25); }
+.pin-photo::before { content: ""; position: absolute; top: -7px; left: 50%; width: 10px; height: 10px; margin-left: -5px; background: var(--red); border: 2px solid var(--ink); border-radius: 50%; }
+.pin-photo::after { content: "Beweis Nr. 3"; position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font-size: 8px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.pin-photo .pp-bg { display: grid; place-items: center; width: 46px; height: 58px; background: #7fb2e5; }
+.pin-photo .pp-light { display: grid; gap: 3px; padding: 4px; background: #1a1b24; border: 2px solid var(--ink); border-radius: 6px; }
+.pin-photo i { display: block; width: 11px; height: 11px; border-radius: 50%; background: #3a3b44; }
+.pin-photo i.r { background: var(--red); box-shadow: 0 0 5px var(--red); }
 .strings { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity .4s; }
 .strings path { stroke: #d1121b; stroke-width: 2.2; fill: none; stroke-dasharray: 400; stroke-dashoffset: 400; }
 .pinboard.strung .strings { opacity: 1; }
