@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Faktenkreuzung – Quiz zur Roten Welle</title>
+<meta name="description" content="Quiz zum Thema Verschwörungserzählungen: Die Rote Welle. Zum Podcast „Faktenkreuzung“.">
+<meta name="theme-color" content="#1d2850">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wall" aria-hidden="true"></div>
+<div class="floor" aria-hidden="true"><div class="rug"></div></div>
+
+<header class="studio">
+  <div class="onair" id="onair">ON AIR</div>
+  <div class="neon" aria-label="Faktenkreuzung">
+    <span class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></span>
+    <span class="neon-t"><b>FAKTEN</b><b>KREUZUNG</b></span>
+  </div>
+  <div class="clock" id="clock" title="">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="17" fill="#f4f1e8" stroke="#15172b" stroke-width="3"/>
+      <line id="hHand" x1="20" y1="20" x2="20" y2="11" stroke="#15172b" stroke-width="3" stroke-linecap="round"/>
+      <line id="mHand" x1="20" y1="20" x2="20" y2="7" stroke="#15172b" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="20" cy="20" r="1.8" fill="#15172b"/>
+    </svg>
+    <span class="clock-note" id="clockNote"></span>
+  </div>
+  <button class="mini-ampel" id="studioAmpel" aria-label="Studio-Ampel"><i class="r"></i><i class="y"></i><i class="g"></i></button>
+  <button class="sound-btn" id="soundBtn" aria-label="Ton an oder aus" title="Ton an/aus">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="mute" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- Start -->
+  <section class="screen" id="s-start">
+    <div class="card hero">
+      <p class="kicker">Podcast „Faktenkreuzung“ · Folge: Die Rote Welle</p>
+      <h1>Quiz zum Thema Verschwörungs&shy;erzählungen</h1>
+      <div class="trio" id="trio"></div>
+      <p class="live-status" id="liveStatus"><span class="loading-line"></span></p>
+      <div class="btn-col">
+        <button class="btn primary" id="btnJoin">Lobby betreten</button>
+        <button class="btn ghost hidden" id="btnSolo">Allein spielen</button>
+      </div>
+      <p class="disclaimer">Die „Rote-Welle-Verschwörung“ ist frei erfunden, genau wie alle Personen, Gruppen und Kanäle im Podcast. Wir haben sie für den Deutschunterricht ausgedacht, um die Muster echter Verschwörungserzählungen zu zeigen.</p>
+    </div>
+    <div class="pinboard" id="pinboard" title="Pinnwand">
+      <div class="pin-note n1">Verkehrsamt</div>
+      <div class="pin-note n2">Tankstelle</div>
+      <div class="pin-note n3">Fahrschule</div>
+      <div class="pin-note n4">Navi</div>
+      <div class="pin-photo"><i></i><i></i><i></i></div>
+      <svg class="strings" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M55 32 L245 34 M55 32 L60 128 M55 32 L240 126 M245 34 L60 128 M245 34 L240 126 M60 128 L240 126 M150 80 L55 32 M150 80 L245 34 M150 80 L60 128 M150 80 L240 126"/>
+      </svg>
+    </div>
+    <a class="host-link" href="?host">Spielleitung (Beamer)</a>
+  </section>
+
+  <!-- Lobby -->
+  <section class="screen" id="s-lobby">
+    <div class="card">
+      <p class="kicker" id="lobbyKicker">Lobby</p>
+      <h2>Wer sitzt heute am Tisch?</h2>
+      <div class="preview" id="preview"></div>
+      <label class="field-label" for="nameInput">Dein Spitzname</label>
+      <div class="name-row">
+        <input id="nameInput" maxlength="16" autocomplete="off" spellcheck="false" placeholder="z. B. Gelbphase">
+        <button class="btn icon" id="btnDice" aria-label="Zufälliger Name" title="Zufälliger Name">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/><circle cx="16" cy="16" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="16" cy="8" r="1.6" fill="currentColor"/><circle cx="8" cy="16" r="1.6" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <p class="name-msg" id="nameMsg" role="status"></p>
+      <p class="field-label">Figur</p>
+      <div class="fig-grid" id="figGrid"></div>
+      <p class="field-label">Pulli oder Hintergrund</p>
+      <div class="swatches" id="swatches"></div>
+      <p class="field-label">Accessoire</p>
+      <div class="chips" id="accChips"></div>
+      <button class="btn primary wide" id="btnSeat">Platz nehmen</button>
+    </div>
+  </section>
+
+  <!-- Warten in der Live-Lobby -->
+  <section class="screen" id="s-wait">
+    <div class="card center">
+      <p class="kicker" id="waitRoom"></p>
+      <h2>Du sitzt am Tisch.</h2>
+      <div class="me-big" id="waitFig"></div>
+      <p class="big-name" id="waitName"></p>
+      <p id="waitText">Schau nach vorne auf den Beamer. Gleich geht es los.</p>
+      <p class="muted" id="waitCount"></p>
+      <p class="muted loading-line"></p>
+    </div>
+  </section>
+
+  <!-- Frage -->
+  <section class="screen" id="s-question">
+    <div class="q-top">
+      <span class="q-num" id="qNum"></span>
+      <div class="timer" id="timer"><div class="timer-ampel"><i class="r"></i><i class="y"></i><i class="g"></i></div><div class="timer-bar"><span id="timerFill"></span></div><span class="timer-s" id="timerS"></span></div>
+    </div>
+    <div class="asker">
+      <div class="asker-fig" id="askerFig"></div>
+      <div class="bubble" id="qText"></div>
+    </div>
+    <div class="answers" id="answers"></div>
+    <button class="egg-man hidden" id="eggMan" aria-label="Kleines Ampelmännchen"></button>
+  </section>
+
+  <!-- Antwort abgegeben -->
+  <section class="screen" id="s-answered">
+    <div class="card center">
+      <h2>Antwort eingeloggt.</h2>
+      <div class="me-big" id="answeredFig"></div>
+      <p>Warte auf die anderen …</p>
+      <p class="muted loading-line"></p>
+    </div>
+  </section>
+
+  <!-- Auflösung -->
+  <section class="screen" id="s-feedback">
+    <div class="card center fb" id="fbCard">
+      <div class="fb-banner" id="fbBanner"></div>
+      <div class="fb-row">
+        <div class="me-big" id="fbFig"></div>
+        <div class="fb-points">
+          <p class="fb-plus" id="fbPlus"></p>
+          <p class="fb-wave" id="fbWave"></p>
+          <p class="fb-total" id="fbTotal"></p>
+          <p class="fb-place" id="fbPlace"></p>
+        </div>
+      </div>
+      <div class="say say-waechter hidden" id="fbWaechter"><div class="say-fig" data-fig="ampelwaechter"></div><div class="bubble" id="fbWaechterText"></div></div>
+      <div class="say"><div class="say-fig" data-fig="drsommer"></div><div class="bubble"><b id="fbRight"></b><span id="fbEx"></span></div></div>
+      <button class="btn primary wide hidden" id="btnNext">Weiter</button>
+      <p class="muted hidden" id="fbWait">Gleich kommt die nächste Frage.</p>
+    </div>
+  </section>
+
+  <!-- Ergebnis -->
+  <section class="screen" id="s-result">
+    <div class="card center">
+      <p class="kicker">Ergebnis</p>
+      <div class="me-big" id="resFig"></div>
+      <h2 class="rank-title" id="resRank"></h2>
+      <p class="res-score" id="resScore"></p>
+      <p id="resText"></p>
+      <p class="res-badge hidden" id="resBonus">Titel: Hat wirklich zugehört</p>
+      <div class="merkkarte">
+        <p class="merk-head">Merkkarte: Die drei Merkmale nach Barkun</p>
+        <ol>
+          <li><i class="r"></i>Nichts passiert durch Zufall.</li>
+          <li><i class="y"></i>Nichts ist, wie es scheint.</li>
+          <li><i class="g"></i>Alles hängt mit allem zusammen.</li>
+        </ol>
+        <p class="merk-foot">Dazu: Immunisierung gegen Kritik. Jeder Gegenbeweis wird zum Beweis.</p>
+      </div>
+      <p class="fazit">Über die Rote Welle kann man schmunzeln. Aber dieselben Muster stecken auch in gefährlichen Erzählungen. Deshalb lohnt es sich, sie zu kennen.</p>
+      <div class="btn-col">
+        <button class="btn primary" id="btnAgain">Nochmal spielen</button>
+        <button class="btn ghost" id="btnShow">Ergebnis zeigen</button>
+      </div>
+      <p class="farewell" id="farewell"></p>
+    </div>
+  </section>
+
+  <!-- Spielleitung -->
+  <section class="screen" id="s-host">
+    <div class="host-view" id="h-setup">
+      <div class="card">
+        <h2>Live-Modus noch nicht eingerichtet</h2>
+        <p id="hostSetupText">In <code>js/config.js</code> fehlt noch die Adresse der Firebase-Datenbank. Bis dahin funktioniert das Quiz als Einzelrunde.</p>
+        <a class="btn ghost" href="./">Zur Startseite</a>
+      </div>
+    </div>
+
+    <div class="host-view" id="h-lobby">
+      <div class="h-lobby-grid">
+        <div class="card join-card">
+          <p class="kicker">Jetzt beitreten</p>
+          <div class="qr" id="qr"></div>
+          <p class="join-url" id="joinUrl"></p>
+          <p class="room-code">Raum <b id="roomCode"></b></p>
+        </div>
+        <div class="table-area">
+          <p class="h-count" id="hCount">Noch niemand am Tisch.</p>
+          <div class="seats" id="seats"></div>
+          <div class="h-actions">
+            <button class="btn primary big" id="btnStart" disabled>Quiz starten</button>
+            <button class="btn ghost" id="btnNewRoom">Neuer Raum</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="host-view" id="h-question">
+      <div class="hq-head">
+        <span class="q-num" id="hqNum"></span>
+        <span class="hq-count" id="hqCount"></span>
+      </div>
+      <div class="hq-main">
+        <div class="asker big">
+          <div class="asker-fig" id="hqAsker"></div>
+          <div class="bubble" id="hqText"></div>
+        </div>
+        <div class="big-ampel" id="hqAmpel"><i class="r"></i><i class="y"></i><i class="g"></i><span id="hqSec"></span></div>
+      </div>
+      <div class="answers host" id="hqAnswers"></div>
+      <div class="say big hidden" id="hqSay"><div class="say-fig" data-fig="drsommer"></div><div class="bubble" id="hqEx"></div></div>
+      <div class="h-actions right"><button class="btn primary" id="btnHostNext">Weiter</button></div>
+    </div>
+
+    <div class="host-view" id="h-board">
+      <h2 class="h-title">Rangliste</h2>
+      <ol class="board" id="board"></ol>
+      <div class="h-actions right"><button class="btn primary" id="btnBoardNext">Nächste Frage</button></div>
+    </div>
+
+    <div class="host-view" id="h-podium">
+      <h2 class="h-title">Siegertreppchen</h2>
+      <div class="podium" id="podium"></div>
+      <div class="podium-foot">
+        <div class="say big"><div class="say-fig" data-fig="moderator"></div><div class="bubble">Das war „Faktenkreuzung“. Die drei Merkmale: kein Zufall, nichts ist, wie es scheint, alles hängt zusammen. Kommt gut über die nächste Ampel!</div></div>
+        <button class="btn ghost" id="btnRestart">Neue Runde</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="countdown hidden" id="countdown" aria-live="polite">
+  <div class="cd-ampel"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+  <p class="cd-text" id="cdText"></p>
+  <div class="cd-shout hidden" id="cdShout"><div class="say-fig" data-fig="ampelwaechter"></div><div class="bubble">Ablenkungswelle!</div></div>
+</div>
+
+<div class="showcard hidden" id="showcard"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/firebase-app-compat.js"></script>
+<script src="vendor/firebase-database-compat.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/figures.js"></script>
+<script src="js/net.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
