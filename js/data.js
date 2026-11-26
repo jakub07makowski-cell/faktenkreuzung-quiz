@@ -9,92 +9,102 @@ window.FK_DATA = {
       q: "Wer steckt laut Ampelwächter hinter den roten Ampeln?",
       a: [
         "Der Grüne Kreis, ein geheimer Zusammenschluss von Verkehrsplanern",
-        "Die Lokalzeitung",
-        "Die Autoindustrie",
-        "Der Rote Ring"
+        "Der Grüne Kreis, ein Bündnis von Tankstellen und Getränkefirmen",
+        "Die Grüne Welle, ein Geheimbund in den Navi-Firmen",
+        "Der Rote Kreis, eine geheime Abteilung im Verkehrsamt"
       ],
-      ex: "Der Grüne Kreis ist das erfundene Feindbild. Hinter allem steckt angeblich ein geheimer Plan."
+      ex: "Der Grüne Kreis besteht angeblich aus Verkehrsplanern in Ämtern und Leitzentralen. Tankstellen und Getränkefirmen sind nur die, an denen er heimlich mitverdient."
     },
     {
-      q: "Was soll der Grüne Kreis angeblich davon haben?",
+      q: "Was hat der Grüne Kreis laut Ampelwächter davon, dass alle warten?",
       a: [
-        "Geld und Macht: Erschöpfte Pendler kaufen Kaffee und hinterfragen nichts mehr",
-        "Weniger Unfälle",
-        "Sauberere Luft",
-        "Mehr Radfahrer"
+        "Erschöpfte Pendler kaufen Kaffee und hinterfragen nichts mehr",
+        "Im Stau wird mehr getankt, und die Ämter kassieren mit",
+        "Wer zu spät kommt, zahlt mehr Bußgelder an die Stadt",
+        "Genervte Autofahrer steigen auf Bus und Bahn um"
       ],
-      ex: "Der Schaden der Pendler ist angeblich der Gewinn des Kreises. So entsteht ein klares Gut gegen Böse."
+      ex: "„Ein erschöpftes Volk ist ein leicht zu lenkendes Volk.“ Der Kreis verdient angeblich an Kaffee und Energydrinks: Der Schaden der Pendler ist sein Gewinn."
     },
     {
-      q: "Von wem stammen die drei Merkmale einer Verschwörungstheorie?",
-      a: ["Michael Barkun", "Michael Butter", "Dr. Sommer", "Ampelwächter_3"],
-      ex: "Michael Barkun hat die drei Merkmale beschrieben. Michael Butter kam bei den Teilöffentlichkeiten und der Immunisierung vor."
+      q: "Wer hat die drei Merkmale beschrieben, an denen man Verschwörungstheorien erkennt?",
+      a: ["Michael Barkun", "Michael Butter", "Karl Popper", "Dr. Sommer"],
+      ex: "Die drei Merkmale stammen von Michael Barkun. Michael Butter kam bei den Teilöffentlichkeiten und der Immunisierung gegen Kritik vor."
     },
     {
-      q: "„Keine einzige rote Ampel ist einfach Pech.“ Welches Merkmal ist das?",
+      q: "„Zwölfmal Rot hintereinander, das kann kein Pech sein.“ Welches Merkmal steckt in diesem Satz?",
       a: [
         "Nichts passiert durch Zufall",
         "Nichts ist, wie es scheint",
         "Alles hängt mit allem zusammen",
-        "Bestätigungsfehler"
-      ],
-      ex: "Merkmal 1: Nichts passiert durch Zufall. Jede rote Ampel gehört angeblich zum Plan."
-    },
-    {
-      q: "Die Ampel als heimliches Kontrollwerkzeug, erkennbar nur an Codes wie der Drei. Welches Merkmal ist das?",
-      a: [
-        "Nichts ist, wie es scheint",
-        "Nichts passiert durch Zufall",
-        "Alles hängt mit allem zusammen",
-        "Echokammer"
-      ],
-      ex: "Merkmal 2: Nichts ist, wie es scheint. Hinter dem harmlosen Gerät steckt angeblich Kontrolle, und nur Eingeweihte erkennen die Zeichen."
-    },
-    {
-      q: "Verkehrsämter, Tankstellen, Getränkefirmen, Navis und Fahrschulen arbeiten angeblich zusammen. Welches Merkmal ist das?",
-      a: [
-        "Alles hängt mit allem zusammen",
-        "Nichts passiert durch Zufall",
-        "Nichts ist, wie es scheint",
         "Immunisierung gegen Kritik"
       ],
-      ex: "Merkmal 3: Alles hängt mit allem zusammen. Gruppen, die nichts miteinander zu tun haben, werden zu einem Netz verbunden."
+      ex: "Merkmal 1: Nichts passiert durch Zufall. Jede rote Ampel gehört angeblich zum Plan, und damit gibt es sofort Täter und Opfer."
+    },
+    {
+      q: "Welche Aussage ist ein Beispiel für das Merkmal „Nichts ist, wie es scheint“?",
+      a: [
+        "Das Ampelmännchen mit Hut ist in Wahrheit ein geheimes Erkennungszeichen",
+        "Zwölfmal Rot vor einem wichtigen Termin kann kein Pech sein",
+        "Navi-Firmen und Fahrschulen arbeiten heimlich zusammen",
+        "Wer im Kanal widerspricht, ist ein Schläfer des Kreises"
+      ],
+      ex: "Merkmal 2: Hinter dem Harmlosen steckt angeblich etwas Verborgenes, das nur Eingeweihte an Codes erkennen. Die anderen Sätze zeigen „kein Zufall“, „alles hängt zusammen“ und die Immunisierung gegen Kritik."
+    },
+    {
+      q: "Verkehrsämter, Tankstellen, Navi-Anbieter und Fahrschulen sollen gemeinsame Sache machen, obwohl manche davon Konkurrenten sind. Welches Merkmal ist das?",
+      a: [
+        "Alles hängt mit allem zusammen",
+        "Nichts ist, wie es scheint",
+        "Nichts passiert durch Zufall",
+        "Teilöffentlichkeit"
+      ],
+      ex: "Merkmal 3: Alles hängt mit allem zusammen. Logisch muss das nicht sein. Je mehr angeblich mitmachen, desto mächtiger wirkt das Ganze."
     },
     {
       q: "Was meint Michael Butter mit „Teilöffentlichkeiten“?",
       a: [
-        "Gruppen, die fast nur unter sich reden und ihre eigene Vorstellung von Wahrheit haben",
-        "Die Hälfte der Zeitungsleser",
-        "Öffentliche Sitzungen im Verkehrsamt",
-        "Kanäle mit wenigen Mitgliedern"
+        "Gruppen, die fast nur unter sich reden und eine eigene Vorstellung von Wahrheit haben",
+        "Der Teil der Bevölkerung, der grundsätzlich an Verschwörungen glaubt",
+        "Geschlossene Kanäle, in denen nur die Admins etwas posten dürfen",
+        "Öffentliche Debatten, an denen sich nur Fachleute beteiligen"
       ],
-      ex: "In Teilöffentlichkeiten wie dem Kanal „Grüne Welle Wahrheit“ wirkt Kritik von außen wie eine Bestätigung. So entsteht eine Echokammer."
+      ex: "Die Öffentlichkeit zerfällt in Gruppen, die unter sich bleiben. Draußen lächelt man über die Rote Welle, im Kanal „Grüne Welle Wahrheit“ gilt sie als Fakt."
     },
     {
-      q: "Eine grüne Ampel heißt für den Ampelwächter „Ablenkungswelle“. Wie nennt man es, wenn jeder Gegenbeweis zum Beweis wird?",
-      a: ["Immunisierung gegen Kritik", "Bestätigungsfehler", "Teilöffentlichkeit", "Faktencheck"],
+      q: "Dr. Sommer zeigt eine Statistik: Ampeln sind öfter grün, als man denkt. Der Ampelwächter sagt nur: „Ablenkungswelle.“ Was passiert hier?",
+      a: [
+        "Immunisierung gegen Kritik: Der Gegenbeweis wird zum Beweis umgedeutet",
+        "Bestätigungsfehler: Er merkt sich nur, was zu seiner Meinung passt",
+        "Echokammer: Die Gruppe bestätigt ihn in seiner Sicht",
+        "Faktencheck: Er überprüft die Statistik an eigenen Daten"
+      ],
       ex: "Immunisierung gegen Kritik: Rot beweist den Plan, Grün auch. Was man durch nichts widerlegen kann, erklärt am Ende nichts."
     },
     {
-      q: "Man merkt sich die eine rote Ampel und vergisst die vielen grünen. Wie heißt dieser Denkfehler?",
-      a: ["Bestätigungsfehler", "Ablenkungswelle", "Echokammer", "Zufallsfehler"],
-      ex: "Beim Bestätigungsfehler merken wir uns vor allem, was zu unserer Meinung passt. Der Ampelwächter schreibt nur die roten Ampeln auf."
+      q: "Der Ampelwächter schreibt jede rote Ampel mit Uhrzeit auf, die grünen aber nicht. Wofür ist das ein Beispiel?",
+      a: [
+        "Bestätigungsfehler: Man beachtet vor allem, was zur eigenen Meinung passt",
+        "Immunisierung gegen Kritik: Gegenbeweise werden zu Beweisen umgedeutet",
+        "Echokammer: Im Kanal hört er jeden Tag, dass er recht hat",
+        "Sündenbock-Denken: Ein Schuldiger ersetzt die eigene Verantwortung"
+      ],
+      ex: "Beim Bestätigungsfehler nehmen wir vor allem wahr, was unsere Meinung stützt. Die grünen Ampeln vergisst man, die eine rote bleibt im Kopf."
     },
     {
-      q: "Was rät Dr. Sommer, wenn jemand aus der Familie so etwas glaubt?",
+      q: "Jemand aus der Familie glaubt an so eine Erzählung. Was rät Dr. Sommer?",
       a: [
         "Den Ärger ernst nehmen, klar widersprechen und nach Widersprüchen fragen",
-        "Alle Fakten hinknallen",
-        "Auslachen",
-        "Gar nicht mehr darüber reden"
+        "Ruhig bleiben und möglichst viele Fakten und Statistiken vorlegen",
+        "Erst einmal zustimmen, um das Vertrauen nicht zu verlieren",
+        "Das Thema meiden, damit der Streit nicht größer wird"
       ],
-      ex: "Wer nur Fakten hinknallt, greift die Person an. Besser: reden, ernst nehmen und fragen, zum Beispiel warum ein geheimer Kreis überall Männchen mit Hut aufhängt."
+      ex: "Wer nur Fakten hinknallt, greift die Person an, und sie macht zu. Besser: reden, ernst nehmen, die eigene Haltung klar sagen und nach Widersprüchen fragen."
     },
     {
       bonus: true,
-      q: "Bonusfrage ohne Punkte: Wie viele rote Ampeln hatte der Ampelwächter an jenem Dienstag?",
-      a: ["Zwölf", "Neun", "Drei", "Elf"],
-      ex: "Zwölfmal Rot vor einem wichtigen Termin. Am Ende will er fünf Minuten früher losfahren, nur als Test."
+      q: "Bonusfrage ohne Punkte: Wie viele rote Ampeln hintereinander hatte der Ampelwächter an jenem Dienstag?",
+      a: ["Zwölf", "Elf", "Neun", "Sieben"],
+      ex: "Zwölfmal Rot vor einem wichtigen Termin. Neun von elf waren es auf dem Weg ins Studio, sieben von acht standen im Kanal-Beitrag."
     }
   ],
 
