@@ -699,6 +699,7 @@
     box.querySelectorAll(".answer").forEach((b) => (b.disabled = true));
     $("#hqSay").classList.add("hidden");
     $("#btnHostNext").textContent = "Auflösen";
+    $("#btnSkipBoard").classList.add("hidden");
     $("#hqAmpel").dataset.l = "r"; $("#hqSec").textContent = "";
     $("#hqCount").textContent = `0 / ${Object.keys(host.players).length} Antworten`;
     await runCountdown(st.startAt, st.abl);
@@ -776,6 +777,9 @@
     $("#hqSay").classList.remove("hidden");
     fillSayFigs($("#h-question"));
     $("#btnHostNext").textContent = st.q >= QN - 1 ? "Zum Siegertreppchen" : "Rangliste";
+    const skip = $("#btnSkipBoard");
+    skip.classList.toggle("hidden", st.q >= QN - 1);
+    skip.textContent = D.questions[st.q + 1] && D.questions[st.q + 1].bonus ? "Direkt zur Bonusfrage" : "Direkt zur nächsten Frage";
     sfx("right");
   }
 
@@ -822,6 +826,13 @@
   $("#btnStart").addEventListener("click", hostNext);
   $("#btnHostNext").addEventListener("click", hostNext);
   $("#btnBoardNext").addEventListener("click", hostNext);
+  // Rangliste überspringen: von der Auflösung direkt zur nächsten Frage
+  $("#btnSkipBoard").addEventListener("click", () => {
+    const st = host.state; if (!st || st.phase !== "reveal" || st.q >= QN - 1) return;
+    if (Date.now() - lastNext < 400) return;
+    lastNext = Date.now();
+    hostGoQuestion(st.q + 1);
+  });
 
   // Spiel zurücksetzen: gleicher Raum, gleicher QR-Code, alle bleiben am Tisch, Punkte und Antworten weg
   async function hostReset() {

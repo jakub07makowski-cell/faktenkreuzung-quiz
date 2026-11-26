@@ -624,3 +624,17 @@ p, .bubble, .answer span { text-wrap: pretty; }
 .fazit { line-height: 1.5; }
 .join-url { text-wrap: balance; }
 .reset-ask { text-align: center; }
+
+/* Spielleitung am Laptop: Knöpfe unten dürfen die Erklärung nicht verdecken */
+body.host #h-question, body.host #h-board { padding-bottom: 84px; }
+@media (max-width: 1100px), (max-height: 620px), (pointer: coarse) {
+  body.host #h-question, body.host #h-board { padding-bottom: 0; }
+}
+@media (min-width: 1101px) and (max-height: 840px) {
+  .big-ampel i { width: 44px; height: 44px; }
+  .big-ampel { padding: 8px; gap: 6px; }
+  .asker.big .asker-fig { width: 96px; }
+  .hq-main { margin-bottom: 4px; }
+}
+#btnSkipBoard { white-space: nowrap; }
+@media (max-width: 700px) { #btnSkipBoard { white-space: normal; font-size: 17px; } }
