@@ -172,6 +172,15 @@
 
   <!-- Spielleitung -->
   <section class="screen" id="s-host">
+    <div class="host-tools hidden" id="hostTools">
+      <button class="btn ghost small" id="btnReset">Spiel zurücksetzen</button>
+      <div class="reset-ask hidden" id="resetAsk">
+        <span>Wirklich von vorne? Punkte und Antworten werden gelöscht, alle bleiben am Tisch.</span>
+        <button class="btn small danger" id="resetYes">Ja, neu starten</button>
+        <button class="btn ghost small" id="resetNo">Abbrechen</button>
+      </div>
+    </div>
+
     <div class="host-view" id="h-setup">
       <div class="card">
         <h2>Live-Modus noch nicht eingerichtet</h2>

@@ -484,9 +484,17 @@
     const st = live && live.state;
     if (!live || !live.stateLoaded) return;
     if (!st) { stopLive(); toast("Die Live-Runde wurde beendet."); initStart(); return; }
-    const key = `${st.phase}:${st.q}`;
+    const round = st.round || 0;
+    const key = `${st.phase}:${st.q}:${round}`;
     if (st.phase === "lobby") {
-      if (live.handledKey !== key) { live.handledKey = key; show("s-wait"); setOnAir(false); }
+      if (live.handledKey !== key) {
+        const wasPlaying = live.handledKey && !live.handledKey.startsWith("lobby");
+        live.handledKey = key;
+        clearTimeout(timerRAF); clearTimeout(timerHard);
+        $("#countdown").classList.add("hidden"); $("#eggMan").classList.add("hidden"); $("#showcard").classList.add("hidden");
+        show("s-wait"); setOnAir(false);
+        if (wasPlaying) toast("Das Spiel wurde zurückgesetzt. Gleich geht es von vorne los.");
+      }
       return;
     }
     if (st.phase === "question") {
@@ -495,7 +503,7 @@
       live.handledKey = key;
       const qi = st.q, q = D.questions[qi];
       if (!q) return;
-      const ansKey = `fk-ans-${live.code}-${qi}`;
+      const ansKey = `fk-ans-${live.code}-${round}-${qi}`;
       if (tabStore.get(ansKey, false)) { show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile); return; }
       show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile);
       await runCountdown(st.startAt, st.abl);
@@ -511,7 +519,7 @@
     }
     if (st.phase === "reveal" || st.phase === "board") {
       const s = live.myScore || { score: 0, streak: 0 };
-      const fbKey = `fb:${st.q}:${s.lastQ === st.q ? "s" : "n"}:${st.phase}`;
+      const fbKey = `fb:${st.q}:${s.lastQ === st.q ? "s" : "n"}:${st.phase}:${round}`;
       if (live.handledKey === fbKey) {
         const p0 = placeOf(); $("#fbPlace").textContent = p0.place ? `Platz ${p0.place} von ${p0.of}` : ""; return;
       }
@@ -574,6 +582,7 @@
   function detachHost() { host.unsubs.forEach((u) => u()); host.unsubs = []; clearInterval(host.hb); clearInterval(host.loop); }
 
   function attachHost(code) {
+    $("#hostTools").classList.remove("hidden");
     host.code = code; host.players = {}; host.scores = {}; host.answers = {}; host.state = null;
     const joinUrl = BASE_URL + "?r=" + code;
     $("#roomCode").textContent = code;
@@ -771,6 +780,22 @@
   $("#btnHostNext").addEventListener("click", hostNext);
   $("#btnBoardNext").addEventListener("click", hostNext);
   $("#btnNewRoom").addEventListener("click", () => newRoom());
+
+  // Spiel zurücksetzen: gleicher Raum, gleicher QR-Code, alle bleiben am Tisch, Punkte und Antworten weg
+  async function hostReset() {
+    if (!host.code) return;
+    host.revealing = true; // laufende Auflösung verhindern
+    clearTimeout(timerRAF); clearTimeout(timerHard);
+    $("#countdown").classList.add("hidden");
+    if (answersUnsub) { answersUnsub(); answersUnsub = null; }
+    answersQ = -1; host.answers = {}; host.scores = {}; lastHostKey = "";
+    await net.update(`rooms/${host.code}`, { answers: null, scores: null, state: { phase: "lobby", q: -1, round: Date.now() } });
+    host.revealing = false;
+    toast("Spiel zurückgesetzt. Alle bleiben am Tisch, wer fehlt, kann jetzt noch scannen.");
+  }
+  $("#btnReset").addEventListener("click", () => { $("#btnReset").classList.add("hidden"); $("#resetAsk").classList.remove("hidden"); });
+  $("#resetNo").addEventListener("click", () => { $("#resetAsk").classList.add("hidden"); $("#btnReset").classList.remove("hidden"); });
+  $("#resetYes").addEventListener("click", async () => { $("#resetAsk").classList.add("hidden"); $("#btnReset").classList.remove("hidden"); await hostReset(); });
   $("#btnRestart").addEventListener("click", () => newRoom());
   document.addEventListener("keydown", (e) => {
     if (!IS_HOST) return;

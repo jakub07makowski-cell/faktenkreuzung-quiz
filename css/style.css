@@ -426,3 +426,9 @@ body.host .q-num { font-size: 22px; padding: 6px 16px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* ---------- Spiel zurücksetzen ---------- */
+.host-tools { position: fixed; left: 24px; bottom: 18px; z-index: 12; display: flex; align-items: center; gap: 10px; }
+.btn.small { min-height: 42px; font-size: 16px; padding: 6px 14px; box-shadow: 0 3px 0 var(--ink); }
+.btn.danger { background: var(--red); color: #fff; }
+.reset-ask { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px; max-width: 560px; font-weight: 600; }
