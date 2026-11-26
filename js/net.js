@@ -40,6 +40,7 @@
     };
     const log = (parts, val) => logMany([[parts, val]]);
     window.addEventListener("storage", (e) => { if (e.key && e.key.startsWith(PFX)) fire(); });
+    const hasUndef = (v) => v === undefined || (v && typeof v === "object" && Object.values(v).some(hasUndef));
     const resolveTS = (v) => {
       if (v && typeof v === "object") {
         if (v[".sv"] === "timestamp") return Date.now();
@@ -54,8 +55,9 @@
       ready: Promise.resolve(true),
       now: () => Date.now(),
       TS: { ".sv": "timestamp" },
-      set(path, val) { log([ROOT, ...splitPath(path)], resolveTS(val)); fire(); return Promise.resolve(); },
+      set(path, val) { if (hasUndef(val)) return Promise.reject(new Error("undefined im Wert (wie Firebase)")); log([ROOT, ...splitPath(path)], resolveTS(val)); fire(); return Promise.resolve(); },
       update(path, obj) {
+        if (hasUndef(obj)) return Promise.reject(new Error("undefined im Wert (wie Firebase)"));
         logMany(Object.keys(obj).map((k) => [[ROOT, ...splitPath(path), ...splitPath(k)], resolveTS(obj[k])]));
         fire(); return Promise.resolve();
       },

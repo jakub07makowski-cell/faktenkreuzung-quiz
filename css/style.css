@@ -433,3 +433,4 @@ body.host .q-num { font-size: 22px; padding: 6px 16px; }
 .btn.danger { background: var(--red); color: #fff; }
 .reset-ask { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px; max-width: 560px; font-weight: 600; }
 .tool-btns { display: flex; gap: 10px; }
+button, .answer, .chip, .swatch, .fig-opt { touch-action: manipulation; }

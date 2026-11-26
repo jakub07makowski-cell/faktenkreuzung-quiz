@@ -8,7 +8,6 @@
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const rnd = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -36,6 +35,7 @@
     sfx("egg");
     if ($("#s-lobby").classList.contains("active")) renderLobby();
   }
+  const nm = (s) => esc(String(s == null ? "?" : s).slice(0, 16));
   const figSvg = (p, cls) => F.svg(p.fig, p.color, p.acc, cls || "");
 
   // ---------- Bildschirme ----------
@@ -248,11 +248,15 @@
     startUnsub = net.listen("current", async (cur) => {
       decided = true;
       const fresh = cur && cur.code && now() - (cur.alive || 0) < 40000 && cur.phase !== "podium";
-      let code = fresh ? cur.code : null;
-      if (!code && forced) { // QR-Code vom Beamer mit Raumnummer: nur nehmen, wenn der Raum noch offen ist
-        const st = await net.get(`rooms/${forced}/state`);
-        if (st && st.phase !== "closed" && st.phase !== "podium") code = forced;
+      let code = null;
+      if (forced) { // QR-Code der Spielleitung mit Raumnummer hat Vorrang, solange der Raum offen ist
+        try {
+          const st = await net.get(`rooms/${forced}/state`);
+          if (st && st.phase !== "closed" && st.phase !== "podium") code = forced;
+        } catch (e) {}
       }
+      if (!code && fresh) code = String(cur.code);
+      if (!$("#s-start").classList.contains("active")) return;
       if (code) {
         liveRoom = code;
         status.classList.add("on");
@@ -415,8 +419,7 @@
     const qi = solo.i, q = D.questions[qi];
     const abl = Math.random() < 1 / 8;
     const startAt = Date.now() + CD_BASE + (abl ? CD_ABL : 0);
-    show("s-answered"); // ruhiger Hintergrund hinter dem Countdown
-    $("#answeredFig").innerHTML = figSvg(profile);
+    showAnswered("Achtung, gleich geht es los.", ""); // ruhiger Hintergrund hinter dem Countdown
     await runCountdown(startAt, abl);
     const perm = shuffle([0, 1, 2, 3]);
     const t0 = Date.now();
@@ -443,6 +446,13 @@
     if (solo.i >= QN) renderResult({ score: solo.score, correct: solo.correct, bonusRight: solo.bonusRight });
     else soloQuestion();
   });
+
+  function showAnswered(title, sub, cls) {
+    $("#answeredTitle").textContent = title;
+    $("#answeredSub").textContent = sub || "";
+    $("#answeredFig").innerHTML = figSvg(profile, cls || "");
+    show("s-answered");
+  }
 
   // ---------- Live (Spieler) ----------
   let live = null;
@@ -518,21 +528,27 @@
       const qi = st.q, q = D.questions[qi];
       if (!q) return;
       const ansKey = `fk-ans-${live.code}-${round}-${qi}`;
-      if (tabStore.get(ansKey, false)) { show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile); return; }
-      show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile);
+      if (tabStore.get(ansKey, false)) { showAnswered("Antwort eingeloggt.", "Warte auf die anderen …"); return; }
+      if (now() >= st.endsAt - 1500) { showAnswered("Du steigst bei der nächsten Frage ein.", "Diese Frage läuft gerade aus."); return; }
+      showAnswered("Achtung, gleich geht es los.", "");
       await runCountdown(st.startAt, st.abl);
       if (!live || live.handledKey !== key) return;
-      if (now() >= st.endsAt) { return; }
+      const room = live.code, me = live.pid;
       renderQuestion(qi, st.perm || [0, 1, 2, 3], st.endsAt, (orig) => {
         tabStore.set(ansKey, true);
-        net.set(`rooms/${live.code}/answers/${qi}/${live.pid}`, { a: orig, at: net.TS }).catch(() => toast("Antwort konnte nicht gesendet werden."));
-        setTimeout(() => { if (live && live.handledKey === key) { show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile); setOnAir(false); } }, 350);
-      }, () => { show("s-answered"); $("#answeredFig").innerHTML = figSvg(profile, "oops"); setOnAir(false); });
+        net.set(`rooms/${room}/answers/${qi}/${me}`, { a: orig, at: net.TS }).catch(() => toast("Antwort konnte nicht gesendet werden. Prüfe dein Internet."));
+        setTimeout(() => { if (live && live.handledKey === key) { showAnswered("Antwort eingeloggt.", "Warte auf die anderen …"); setOnAir(false); } }, 350);
+      }, () => { if (live && live.handledKey === key) { showAnswered("Zeit abgelaufen.", "Gleich kommt die Auflösung.", "oops"); setOnAir(false); } });
       // Pylone wackelt bei Zeitnot: über Timer-Klasse
       return;
     }
     if (st.phase === "reveal" || st.phase === "board") {
       const s = live.myScore || { score: 0, streak: 0 };
+      if (st.phase === "reveal" && s.lastQ !== st.q && live.waitedFor !== `${round}:${st.q}`) {
+        live.waitedFor = `${round}:${st.q}`;
+        setTimeout(() => { if (live) renderLiveState(); }, 700);
+        return;
+      }
       const fbKey = `fb:${st.q}:${s.lastQ === st.q ? "s" : "n"}:${st.phase}:${round}`;
       if (live.handledKey === fbKey) {
         const p0 = placeOf(); $("#fbPlace").textContent = p0.place ? `Platz ${p0.place} von ${p0.of}` : ""; return;
@@ -581,7 +597,7 @@
     const saved = store.get("fk-host-room", null);
     if (saved && Date.now() - saved.at < 3 * 3600 * 1000) {
       const st = await net.get(`rooms/${saved.code}/state`);
-      if (st && st.phase !== "podium") { attachHost(saved.code); return; }
+      if (st && st.phase !== "podium" && st.phase !== "closed") { attachHost(saved.code); return; }
     }
     await newRoom();
   }
@@ -652,7 +668,7 @@
       hostView("h-lobby"); setOnAir(false);
       const list = Object.values(host.players);
       $("#hCount").textContent = list.length ? (list.length === 1 ? "1 Person sitzt am Tisch." : `${list.length} Leute sitzen am Tisch.`) : "Noch niemand am Tisch. Scannt den QR-Code!";
-      $("#seats").innerHTML = list.map((p) => `<div class="seat">${F.svg(p.fig, p.color, p.acc)}<span>${esc(p.name)}</span></div>`).join("");
+      $("#seats").innerHTML = list.map((p) => `<div class="seat">${F.svg(p.fig, p.color, p.acc)}<span>${nm(p.name)}</span></div>`).join("");
       $("#btnStart").disabled = list.length === 0;
       lastHostKey = key; return;
     }
@@ -695,6 +711,7 @@
     const st = host.state;
     if (!st || st.phase !== "question" || host.revealing) return;
     host.revealing = true;
+    try {
     const q = D.questions[st.q];
     const answers = (await net.get(`rooms/${host.code}/answers/${st.q}`)) || {};
     const counts = [0, 0, 0, 0];
@@ -704,7 +721,7 @@
     players.forEach((pid) => {
       const prev = host.scores[pid] || { score: 0, streak: 0, correct: 0 };
       const ans = answers[pid];
-      const valid = ans && typeof ans.a === "number" && (!ans.at || ans.at <= st.endsAt + 1500);
+      const valid = !!(ans && [0, 1, 2, 3].includes(ans.a) && (!ans.at || ans.at <= st.endsAt + 1500));
       if (valid) counts[ans.a] = (counts[ans.a] || 0) + 1;
       const correct = !!(valid && ans.a === 0);
       const elapsed = valid && ans.at ? ans.at - st.startAt : T;
@@ -714,7 +731,7 @@
       const s = {
         score: (prev.score || 0) + points + wave, streak,
         correct: (prev.correct || 0) + (correct && !q.bonus ? 1 : 0),
-        bonusRight: !!prev.bonusRight || (q.bonus && correct),
+        bonusRight: !!(prev.bonusRight || (q.bonus && correct)),
         lastQ: st.q, lastAnswered: !!valid, lastCorrect: correct, lastPoints: points, lastWave: wave
       };
       newScores[pid] = s;
@@ -725,6 +742,10 @@
     upd["state/ranking"] = ranking;
     upd["state/phase"] = "reveal";
     await net.update(`rooms/${host.code}`, upd);
+    } catch (e) {
+      console.error("Auflösung fehlgeschlagen", e);
+      setTimeout(() => { host.revealing = false; }, 1500); // hostTick versucht es erneut
+    }
   }
 
   function hostShowReveal(st) {
@@ -762,7 +783,7 @@
     hostView("h-board");
     const top = sortedPlayers().slice(0, 5);
     $("#board").innerHTML = top.length ? top.map((p, i) =>
-      `<li style="animation-delay:${i * 90}ms"><span class="pl">${i + 1}.</span>${F.svg(p.fig, p.color, p.acc, p.streak >= 2 ? "wave" : "")}<span class="nm">${esc(p.name)}</span>${p.streak >= 2 ? `<span class="wv">Grüne Welle ×${p.streak}</span>` : ""}<span class="sc">${(p.score || 0).toLocaleString("de-DE")}</span></li>`).join("")
+      `<li style="animation-delay:${i * 90}ms"><span class="pl">${i + 1}.</span>${F.svg(p.fig, p.color, p.acc, p.streak >= 2 ? "wave" : "")}<span class="nm">${nm(p.name)}</span>${p.streak >= 2 ? `<span class="wv">Grüne Welle ×${p.streak}</span>` : ""}<span class="sc">${(p.score || 0).toLocaleString("de-DE")}</span></li>`).join("")
       : '<li>Noch keine Punkte.</li>';
     const st = host.state;
     $("#btnBoardNext").textContent = D.questions[st.q + 1] && D.questions[st.q + 1].bonus ? "Bonusfrage" : "Nächste Frage";
@@ -775,7 +796,7 @@
     const order = [1, 0, 2];
     $("#podium").innerHTML = order.map((i) => {
       const p = top[i]; if (!p) return "";
-      return `<div class="step p${i + 1}">${F.svg(p.fig, p.color, p.acc, "cheer")}<div class="nm">${esc(p.name)}</div><div class="block">${i + 1}<span class="sc">${(p.score || 0).toLocaleString("de-DE")}</span></div></div>`;
+      return `<div class="step p${i + 1}">${F.svg(p.fig, p.color, p.acc, "cheer")}<div class="nm">${nm(p.name)}</div><div class="block">${i + 1}<span class="sc">${(p.score || 0).toLocaleString("de-DE")}</span></div></div>`;
     }).join("");
     fillSayFigs($("#h-podium"));
     sfx("jingle");
@@ -788,8 +809,11 @@
     await net.update(`rooms/${host.code}/state`, { phase: "question", q, perm: shuffle([0, 1, 2, 3]), startAt, endsAt: startAt + T, abl, counts: null });
   }
 
+  let lastNext = 0;
   function hostNext() {
     const st = host.state; if (!st) return;
+    if (Date.now() - lastNext < 400) return; // Doppelklick überspringt sonst einen Schritt
+    lastNext = Date.now();
     if (st.phase === "lobby") { if (Object.keys(host.players).length) hostGoQuestion(0); }
     else if (st.phase === "question") hostReveal();
     else if (st.phase === "reveal") net.update(`rooms/${host.code}/state`, { phase: st.q >= QN - 1 ? "podium" : "board" });
@@ -825,9 +849,23 @@
   $("#btnRestart").addEventListener("click", () => newRoom());
   document.addEventListener("keydown", (e) => {
     if (!IS_HOST) return;
-    if (e.target.tagName === "INPUT") return;
-    if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") { e.preventDefault(); hostNext(); }
+    if (e.target.tagName === "INPUT" || e.repeat) return;
+    if (!$("#resetAsk").classList.contains("hidden")) return;
+    if (host.state && host.state.phase === "podium") return;
+    if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") {
+      e.preventDefault();
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      hostNext();
+    }
   });
+
+  // Bildschirm wach halten (Beamer-Laptop und Handys im Warteraum)
+  let wakeLock = null;
+  async function keepAwake() {
+    try { if ("wakeLock" in navigator && !wakeLock) { wakeLock = await navigator.wakeLock.request("screen"); wakeLock.addEventListener("release", () => { wakeLock = null; }); } } catch (e) {}
+  }
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && (IS_HOST || live)) keepAwake(); });
+  document.addEventListener("click", () => { if (IS_HOST || mode === "live") keepAwake(); });
 
   // ---------- Start ----------
   fillSayFigs();
