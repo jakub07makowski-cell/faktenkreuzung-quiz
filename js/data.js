@@ -23,42 +23,42 @@ window.FK_DATA = {
         "Wer zu spät kommt, zahlt mehr Bußgelder an die Stadt",
         "Genervte Autofahrer steigen auf Bus und Bahn um"
       ],
-      ex: "„Ein erschöpftes Volk ist ein leicht zu lenkendes Volk.“ Der Kreis verdient angeblich an Kaffee und Energydrinks: Der Schaden der Pendler ist sein Gewinn."
+      ex: "„Ein müdes Volk ist ein ruhiges Volk.“ Dazu verdient der Kreis angeblich heimlich an Tankstellen und Getränkefirmen mit: „Euer Stress ist deren Gewinn.“"
     },
     {
       q: "Wer hat die drei Merkmale beschrieben, an denen man Verschwörungstheorien erkennt?",
       a: ["Michael Barkun", "Michael Butter", "Karl Popper", "Dr. Sommer"],
-      ex: "Die drei Merkmale stammen von Michael Barkun. Michael Butter kam bei den Teilöffentlichkeiten und der Immunisierung gegen Kritik vor."
+      ex: "Die drei Merkmale stammen vom Politikwissenschaftler Michael Barkun. Michael Butter kam bei den Teilöffentlichkeiten und der Immunisierung gegen Kritik vor."
     },
     {
-      q: "„Zwölfmal Rot hintereinander, das kann kein Pech sein.“ Welches Merkmal steckt in diesem Satz?",
+      q: "„Ein Mal ist Pech, zwölf Mal ist Absicht.“ Welches Merkmal steckt in diesem Satz?",
       a: [
-        "Nichts passiert durch Zufall",
+        "Nichts geschieht durch Zufall",
         "Nichts ist, wie es scheint",
-        "Alles hängt mit allem zusammen",
+        "Alles ist miteinander verbunden",
         "Immunisierung gegen Kritik"
       ],
-      ex: "Merkmal 1: Nichts passiert durch Zufall. Jede rote Ampel gehört angeblich zum Plan, und damit gibt es sofort Täter und Opfer."
+      ex: "Merkmal 1: Nichts geschieht durch Zufall. Zwölf rote Ampeln sind angeblich Teil eines Plans. So wird die Welt in Gut und Böse geteilt: der Grüne Kreis gegen die Pendler."
     },
     {
       q: "Welche Aussage ist ein Beispiel für das Merkmal „Nichts ist, wie es scheint“?",
       a: [
         "Das Ampelmännchen mit Hut ist in Wahrheit ein geheimes Erkennungszeichen",
-        "Zwölfmal Rot vor einem wichtigen Termin kann kein Pech sein",
+        "Ein Mal ist Pech, zwölf Mal ist Absicht",
         "Navi-Firmen und Fahrschulen arbeiten heimlich zusammen",
         "Wer im Kanal widerspricht, ist ein Schläfer des Kreises"
       ],
-      ex: "Merkmal 2: Hinter dem Harmlosen steckt angeblich etwas Verborgenes, das nur Eingeweihte an Codes erkennen. Die anderen Sätze zeigen „kein Zufall“, „alles hängt zusammen“ und die Immunisierung gegen Kritik."
+      ex: "Merkmal 2: Die harmlose Ampel ist angeblich ein Werkzeug der Kontrolle, und die Verschwörer erkennt man nur an geheimen Codes wie der Zahl 3. Die anderen Sätze zeigen „kein Zufall“, „alles ist verbunden“ und die Immunisierung gegen Kritik."
     },
     {
-      q: "Verkehrsämter, Tankstellen, Navi-Anbieter und Fahrschulen sollen gemeinsame Sache machen, obwohl manche davon Konkurrenten sind. Welches Merkmal ist das?",
+      q: "Verkehrsämter, Tankstellen, Getränkefirmen, Navi-Anbieter und Fahrschulen sollen zusammenarbeiten. Was hat eine Fahrschule mit einem Energydrink zu tun? Welches Merkmal ist das?",
       a: [
-        "Alles hängt mit allem zusammen",
+        "Alles ist miteinander verbunden",
         "Nichts ist, wie es scheint",
-        "Nichts passiert durch Zufall",
+        "Nichts geschieht durch Zufall",
         "Teilöffentlichkeit"
       ],
-      ex: "Merkmal 3: Alles hängt mit allem zusammen. Logisch muss das nicht sein. Je mehr angeblich mitmachen, desto mächtiger wirkt das Ganze."
+      ex: "Merkmal 3: Alles ist miteinander verbunden. Logisch muss die Verbindung nicht sein, es reicht, dass alle mit dem Straßenverkehr zu tun haben. Je mehr mitmachen, desto mächtiger wirkt die Verschwörung."
     },
     {
       q: "Was meint Michael Butter mit „Teilöffentlichkeiten“?",
@@ -68,7 +68,7 @@ window.FK_DATA = {
         "Geschlossene Kanäle, in denen nur die Admins etwas posten dürfen",
         "Öffentliche Debatten, an denen sich nur Fachleute beteiligen"
       ],
-      ex: "Die Öffentlichkeit zerfällt in Gruppen, die unter sich bleiben. Draußen lächelt man über die Rote Welle, im Kanal „Grüne Welle Wahrheit“ gilt sie als Fakt."
+      ex: "Die Öffentlichkeit zerfällt in Gruppen, die unter sich bleiben. Bei Lokalzeitung, Behörden und Fachleuten wird die Rote Welle belächelt, im Telegram-Kanal „Grüne Welle Wahrheit“ gilt sie als sicheres Wissen."
     },
     {
       q: "Dr. Sommer zeigt eine Statistik: Ampeln sind öfter grün, als man denkt. Der Ampelwächter sagt nur: „Ablenkungswelle.“ Was passiert hier?",
@@ -93,18 +93,18 @@ window.FK_DATA = {
     {
       q: "Jemand aus der Familie glaubt an so eine Erzählung. Was rät Dr. Sommer?",
       a: [
-        "Den Ärger ernst nehmen, klar widersprechen und nach Widersprüchen fragen",
+        "Den Ärger ernst nehmen, sich klar abgrenzen und auf Widersprüche hinweisen",
         "Ruhig bleiben und möglichst viele Fakten und Statistiken vorlegen",
         "Erst einmal zustimmen, um das Vertrauen nicht zu verlieren",
         "Das Thema meiden, damit der Streit nicht größer wird"
       ],
-      ex: "Wer nur Fakten hinknallt, greift die Person an, und sie macht zu. Besser: reden, ernst nehmen, die eigene Haltung klar sagen und nach Widersprüchen fragen."
+      ex: "Wer nur mit Fakten kommt, greift auch die Identität des anderen an. Besser ist ein Gespräch: den Ärger ernst nehmen, sich klar von der Geschichte abgrenzen und auf Widersprüche hinweisen."
     },
     {
       bonus: true,
-      q: "Bonusfrage ohne Punkte: Wie viele rote Ampeln hintereinander hatte der Ampelwächter an jenem Dienstag?",
+      q: "Bonusfrage ohne Punkte: Wie viele rote Ampeln hintereinander hatte der Ampelwächter auf dem Weg zu seinem wichtigen Termin?",
       a: ["Zwölf", "Elf", "Neun", "Sieben"],
-      ex: "Zwölfmal Rot vor einem wichtigen Termin. Neun von elf waren es auf dem Weg ins Studio, sieben von acht standen im Kanal-Beitrag."
+      ex: "Zwölf Ampeln, zwölfmal Rot vor seinem Termin um acht. Neun von elf waren es auf dem Weg ins Studio, sieben von acht standen im Kanal-Post."
     }
   ],
 

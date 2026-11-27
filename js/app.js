@@ -131,7 +131,7 @@
     let timer;
     const start = (e) => { timer = setTimeout(() => {
       el.classList.toggle("strung");
-      if (el.classList.contains("strung")) { toast("Alles hängt mit allem zusammen. Oder doch nicht?"); sfx("egg"); }
+      if (el.classList.contains("strung")) { toast("Alles ist miteinander verbunden. Oder doch nicht?"); sfx("egg"); }
     }, 650); };
     const stop = () => clearTimeout(timer);
     el.addEventListener("pointerdown", start);
